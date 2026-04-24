@@ -21,10 +21,10 @@ jobs:
     uses: Harshitha3826/Reusable-template/.github/workflows/ci-template.yml@main
     with:
       working_directory: "."
-      image_name: "Frontend-service"
-      service-name: "Frontend-service"
+      image_name: "frontend-service"
+      service-name: "frontend-service"
       run_build: false
-      sonar_project_key: "Frontend-service"
+      sonar_project_key: "frontend-service"
       docker_context: "."
       dockerfile_path: "Dockerfile"
     secrets:
