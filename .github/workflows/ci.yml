@@ -42,7 +42,7 @@ jobs:
       working_directory: "."
       image_name: "frontend-service"
       service-name: "frontend-service"
-      run_build: false
+      run_build: true
       sonar_project_key: "frontend-service"
       docker_context: "."
       dockerfile_path: "Dockerfile"
