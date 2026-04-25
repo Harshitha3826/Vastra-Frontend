@@ -16,9 +16,28 @@ permissions:
   packages: write
 
 jobs:
+  check-secrets:
+    name: "Check Secrets"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Required Secrets
+        run: |
+          echo "Checking secrets..."
+          echo "SONAR_TOKEN: ${{ secrets.SONAR_TOKEN != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SNYK_TOKEN: ${{ secrets.SNYK_TOKEN != '' && 'EXISTS' || 'MISSING' }}"
+          echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME != '' && 'EXISTS' || 'MISSING' }}"
+          echo "DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SMTP_HOST: ${{ secrets.SMTP_HOST != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SMTP_PORT: ${{ secrets.SMTP_PORT != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SMTP_USERNAME: ${{ secrets.SMTP_USERNAME != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD != '' && 'EXISTS' || 'MISSING' }}"
+          echo "EMAIL_TO: ${{ secrets.EMAIL_TO != '' && 'EXISTS' || 'MISSING' }}"
+
   ci:
     name: "Frontend Service Pipeline"
     uses: Harshitha3826/Reusable-template/.github/workflows/ci-template.yml@main
+    needs: check-secrets
     with:
       working_directory: "."
       image_name: "frontend-service"
