@@ -45,7 +45,7 @@ const Orders = () => {
         <div className="text-center py-16 bg-gray-50 rounded-lg border border-gray-200">
           <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
           <h3 className="text-lg font-medium text-gray-900">No orders yet</h3>
-          <p className="mt-1 text-gray-500">You haven't placed any orders yet.</p>
+          <p className="mt-1 text-gray-500">You haven&apos;t placed any orders yet.</p>
         </div>
       ) : (
         <div className="space-y-8">
