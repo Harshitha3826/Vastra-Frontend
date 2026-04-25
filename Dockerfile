@@ -13,7 +13,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # IMPORTANT: If you created your React app with Vite, change `/app/build` to `/app/dist`
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # The standard Nginx port (matches our Helm configuration perfectly)
 EXPOSE 80
