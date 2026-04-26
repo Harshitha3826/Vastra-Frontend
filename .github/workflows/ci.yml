@@ -1,0 +1,64 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - main
+      - Dev-Branch
+    
+  pull_request:
+    branches:
+      - main
+      - Dev-Branch
+    
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  check-secrets:
+    name: "Check Secrets"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Required Secrets
+        run: |
+          echo "Checking secrets..."
+          echo "SONAR_TOKEN: ${{ secrets.SONAR_TOKEN != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SNYK_TOKEN: ${{ secrets.SNYK_TOKEN != '' && 'EXISTS' || 'MISSING' }}"
+          echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME != '' && 'EXISTS' || 'MISSING' }}"
+          echo "DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SMTP_HOST: ${{ secrets.SMTP_HOST != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SMTP_PORT: ${{ secrets.SMTP_PORT != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SMTP_USERNAME: ${{ secrets.SMTP_USERNAME != '' && 'EXISTS' || 'MISSING' }}"
+          echo "SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD != '' && 'EXISTS' || 'MISSING' }}"
+          echo "EMAIL_TO: ${{ secrets.EMAIL_TO != '' && 'EXISTS' || 'MISSING' }}"
+
+  ci:
+    name: "Frontend Service Pipeline"
+    uses: Harshitha3826/Reusable-template/.github/workflows/ci-template.yml@main
+    needs: check-secrets
+    with:
+      working_directory: "."
+      image_name: "frontend-service"
+      service-name: "frontend-service"
+      run_build: true
+      sonar_project_key: "frontend-service"
+      docker_context: "."
+      dockerfile_path: "Dockerfile"
+      helm_repo: "Harshitha3826/Vastra-helm"
+      helm_chart_path: "vastra-deployments"
+      values_file: "values-dev.yaml"
+      helm_service_key: "frontend"
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
