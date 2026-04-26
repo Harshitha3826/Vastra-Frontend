@@ -16,6 +16,7 @@ permissions:
   packages: write
 
 jobs:
+<<<<<<< HEAD
   check-secrets:
     name: "Check Secrets"
     runs-on: ubuntu-latest
@@ -50,6 +51,19 @@ jobs:
       helm_chart_path: "vastra-deployments"
       values_file: "values-dev.yaml"
       helm_service_key: "frontend"
+=======
+  ci:
+    name: "Frontend Service Pipeline"
+    uses: Harshitha3826/Reusable-template/.github/workflows/ci-template.yml@main
+    with:
+      working_directory: "."
+      image_name: "Frontend-service"
+      service-name: "Frontend-service"
+      run_build: false
+      sonar_project_key: "Frontend-service"
+      docker_context: "."
+      dockerfile_path: "Dockerfile"
+>>>>>>> 79c166c (commit)
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -60,5 +74,9 @@ jobs:
       SMTP_PORT: ${{ secrets.SMTP_PORT }}
       SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+<<<<<<< HEAD
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+=======
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+>>>>>>> 79c166c (commit)
