@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - main
-      - Dev-Branch
+      - Dev_branch
     
   pull_request:
     branches:
       - main
-      - Dev-Branch
+      - Dev_branch
     
 permissions:
   contents: write
@@ -61,4 +61,3 @@ jobs:
       SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
