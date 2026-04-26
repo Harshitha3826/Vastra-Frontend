@@ -46,6 +46,10 @@ jobs:
       sonar_project_key: "frontend-service"
       docker_context: "."
       dockerfile_path: "Dockerfile"
+      helm_repo: "Harshitha3826/Vastra-helm"
+      helm_chart_path: "vastra-deployments"
+      values_file: "values-dev.yaml"
+      helm_service_key: "frontend"
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -57,3 +61,4 @@ jobs:
       SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
