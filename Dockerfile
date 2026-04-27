@@ -16,6 +16,7 @@ FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # The standard Nginx port (matches our Helm configuration perfectly)
+#
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
